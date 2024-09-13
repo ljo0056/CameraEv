@@ -1,5 +1,7 @@
 # CameraEv
 * CCTV Camera Processor
+* Visual Studio 2017
+* 프로세스 통신(공유메모리)을 통해서 영상 수신 및 디코딩 파트를 UI 와 분리하여 개발하려는 목적을 갖고 있습니다.
 
 
 # Test
@@ -14,6 +16,8 @@
 * Live555 (http://www.live555.com/)
 * gRPC and Protobuf (https://grpc.io/ and https://github.com/protocolbuffers/protobuf)
 * Virtual Leak Detector-vld (https://github.com/KindDragon/vld)
+* plog (https://github.com/SergiusTheBest/plog)
+* fmt (https://github.com/fmtlib/fmt)
 
 
 # Screenshot
