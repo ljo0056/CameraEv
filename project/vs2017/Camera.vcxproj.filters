@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="PTZ">
+      <UniqueIdentifier>{60d7f4f0-966a-469a-9182-b568af3892fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Decoder">
+      <UniqueIdentifier>{c6a93332-468b-4816-a4a8-8c798a97e1b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{24d047a0-223f-4b5e-953f-d49f6f8c379e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stream">
+      <UniqueIdentifier>{934099bd-7082-47a1-9482-90d9bac0c383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Live555">
+      <UniqueIdentifier>{de7eba7c-ab55-4347-9d18-4403ca9eb56f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Session">
+      <UniqueIdentifier>{fdb32f3d-25ae-4624-95cb-3a466d073b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{cd574311-1ea1-4cff-9cb7-e8c38e26456c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{f3b1ba5c-20fb-4a5f-a488-6ef4af92bae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{f5395bd4-4b81-45cf-8c61-f36d5f1f7d52}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\stream\Streamer.cpp">
+      <Filter>Stream</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\session\Session.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\session\SessionFactory.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\session\Session_RTSP.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\Control.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ptz\PTZ.cpp">
+      <Filter>PTZ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\live555\rtsp_callback.cpp">
+      <Filter>Live555</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\live555\rtsp_client.cpp">
+      <Filter>Live555</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\live555\rtsp_H264Sink.cpp">
+      <Filter>Live555</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\live555\rtsp_StreamClientState.cpp">
+      <Filter>Live555</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\decoder\Decoder.cpp">
+      <Filter>Decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\decoder\DecoderFactory.cpp">
+      <Filter>Decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\decoder\Decoder_FFmpeg.cpp">
+      <Filter>Decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\decoder\FFmpeg.cpp">
+      <Filter>Decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Application.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Camera.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\main.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stdafx.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\decoder\Converter_FFmpeg.cpp">
+      <Filter>Decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\CmdLineParser.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\FPSChecker.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\InnerThread.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\Locker.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\PLogCommon.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\PreviewWnd.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\QueueLocalMemory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\QueueSharedMemory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\RepeatWorkProc.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\SyncSharedMemory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\TimerEx.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\TimerLockerManager.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\common\Util.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\network\PacketDefine.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\network\PacketStruct.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\network\RecvWorkerSyncQueue.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\network\SendWorkerManager.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\network\SendWorkerSyncQueue.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\proto\SystemInfo.cpp">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\proto\CameraInfoFile.pb.cc">
+      <Filter>proto</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\stdafx.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Application.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Camera.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\stream\Streamer.h">
+      <Filter>Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\session\SessionDefine.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GlobalDefine.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\session\Session.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\session\SessionFactory.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\session\Session_RTSP.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\Control.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ptz\PTZ.h">
+      <Filter>PTZ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\live555\rtsp_callback.h">
+      <Filter>Live555</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\live555\rtsp_client.h">
+      <Filter>Live555</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\live555\rtsp_H264Sink.h">
+      <Filter>Live555</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\live555\rtsp_StreamClientState.h">
+      <Filter>Live555</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\decoder\Decoder.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\decoder\DecoderFactory.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\decoder\Decoder_FFmpeg.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\decoder\DecoderDefine.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\decoder\FFmpeg.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\decoder\Converter_FFmpeg.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\CmdLineParser.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\FPSChecker.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\InnerThread.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\Locker.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\PLogCommon.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\PreviewWnd.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\QueueLocalMemory.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\QueueSharedMemory.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\RepeatWorkProc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\SyncSharedMemory.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\TimerEx.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\TimerLockerManager.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common\Util.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\PacketDefine.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\PacketStruct.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\RecvWorkerSyncQueue.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\SendWorkerManager.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\SendWorkerSyncQueue.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\proto\SystemInfo.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\proto\CameraInfoFile.pb.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

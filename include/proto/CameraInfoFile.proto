@@ -1,0 +1,38 @@
+// https://developers.google.com/protocol-buffers/docs/tutorials
+
+syntax = "proto3";
+
+package CameraInfoFile;
+
+message Camera {
+    message StreamInfo {
+        string url     = 1;
+        string ip      = 2;
+        uint32 port    = 3;
+        string user_id = 4;
+        string user_pw = 5;
+        bool   tcp     = 6;
+        uint32 stream_accumulate_time = 7;
+        uint32 fps     = 8;
+        bool   stream_used = 9;
+    }
+
+    string camera_guid = 1;
+    string camera_name = 2;
+
+    repeated StreamInfo stream_info = 3;
+}
+
+message CameraWatchdog {
+    uint32 pid = 1;
+}
+
+message System {
+    message CameraInfo {
+        string camera_guid  = 1;
+    }
+
+    string system_guid = 1;
+    string system_name = 2;
+    repeated CameraInfo cameras = 3;
+}

@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{2B141603-7717-464E-8817-75257425EABE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Camera</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.\..\..\bin64\</OutDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>.\..\..\bin64\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.\..\..\src;.\..\..\include;.\..\..\third_party\fmt\include;.\..\..\third_party\fmt\src;.\..\..\third_party\plog\include;.\..\..\third_party\vld\include;.\..\..\third_party\ffmpeg\include;.\..\..\third_party\ffmpeg\include\ffmpeg;.\..\..\third_party\Live555;.\..\..\third_party\Live555\liveMedia\include;.\..\..\third_party\Live555\groupsock\include;.\..\..\third_party\Live555\UsageEnvironment\include;.\..\..\third_party\Live555\BasicUsageEnvironment\include;.\..\..\third_party\grpc_lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.\..\..\third_party\vld\lib\Win64;.\..\..\third_party\fmt\lib\x64;.\..\..\third_party\Live555\lib\vs2017\x64;.\..\..\third_party\ffmpeg\lib\x64;.\..\..\third_party\grpc_lib\lib\vs2017\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.\..\..\src;.\..\..\include;.\..\..\third_party\fmt\include;.\..\..\third_party\fmt\src;.\..\..\third_party\plog\include;.\..\..\third_party\vld\include;.\..\..\third_party\ffmpeg\include;.\..\..\third_party\ffmpeg\include\ffmpeg;.\..\..\third_party\Live555;.\..\..\third_party\Live555\liveMedia\include;.\..\..\third_party\Live555\groupsock\include;.\..\..\third_party\Live555\UsageEnvironment\include;.\..\..\third_party\Live555\BasicUsageEnvironment\include;.\..\..\third_party\grpc_lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.\..\..\third_party\vld\lib\Win64;.\..\..\third_party\fmt\lib\x64;.\..\..\third_party\Live555\lib\vs2017\x64;.\..\..\third_party\ffmpeg\lib\x64;.\..\..\third_party\grpc_lib\lib\vs2017\x64\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\common\CmdLineParser.h" />
+    <ClInclude Include="..\..\include\common\FPSChecker.h" />
+    <ClInclude Include="..\..\include\common\InnerThread.h" />
+    <ClInclude Include="..\..\include\common\Locker.h" />
+    <ClInclude Include="..\..\include\common\PLogCommon.h" />
+    <ClInclude Include="..\..\include\common\PreviewWnd.h" />
+    <ClInclude Include="..\..\include\common\QueueLocalMemory.h" />
+    <ClInclude Include="..\..\include\common\QueueSharedMemory.h" />
+    <ClInclude Include="..\..\include\common\RepeatWorkProc.h" />
+    <ClInclude Include="..\..\include\common\SyncSharedMemory.h" />
+    <ClInclude Include="..\..\include\common\TimerEx.h" />
+    <ClInclude Include="..\..\include\common\TimerLockerManager.h" />
+    <ClInclude Include="..\..\include\common\Util.h" />
+    <ClInclude Include="..\..\include\network\PacketDefine.h" />
+    <ClInclude Include="..\..\include\network\PacketStruct.h" />
+    <ClInclude Include="..\..\include\network\RecvWorkerSyncQueue.h" />
+    <ClInclude Include="..\..\include\network\SendWorkerManager.h" />
+    <ClInclude Include="..\..\include\network\SendWorkerSyncQueue.h" />
+    <ClInclude Include="..\..\include\proto\CameraInfoFile.pb.h" />
+    <ClInclude Include="..\..\include\proto\SystemInfo.h" />
+    <ClInclude Include="..\..\src\Application.h" />
+    <ClInclude Include="..\..\src\Camera.h" />
+    <ClInclude Include="..\..\src\control\Control.h" />
+    <ClInclude Include="..\..\src\decoder\Converter_FFmpeg.h" />
+    <ClInclude Include="..\..\src\decoder\Decoder.h" />
+    <ClInclude Include="..\..\src\decoder\DecoderDefine.h" />
+    <ClInclude Include="..\..\src\decoder\DecoderFactory.h" />
+    <ClInclude Include="..\..\src\decoder\Decoder_FFmpeg.h" />
+    <ClInclude Include="..\..\src\decoder\FFmpeg.h" />
+    <ClInclude Include="..\..\src\GlobalDefine.h" />
+    <ClInclude Include="..\..\src\live555\rtsp_callback.h" />
+    <ClInclude Include="..\..\src\live555\rtsp_client.h" />
+    <ClInclude Include="..\..\src\live555\rtsp_H264Sink.h" />
+    <ClInclude Include="..\..\src\live555\rtsp_StreamClientState.h" />
+    <ClInclude Include="..\..\src\ptz\PTZ.h" />
+    <ClInclude Include="..\..\src\session\SessionDefine.h" />
+    <ClInclude Include="..\..\src\session\Session.h" />
+    <ClInclude Include="..\..\src\session\SessionFactory.h" />
+    <ClInclude Include="..\..\src\session\Session_RTSP.h" />
+    <ClInclude Include="..\..\src\stdafx.h" />
+    <ClInclude Include="..\..\src\stream\Streamer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\include\common\CmdLineParser.cpp" />
+    <ClCompile Include="..\..\include\common\FPSChecker.cpp" />
+    <ClCompile Include="..\..\include\common\InnerThread.cpp" />
+    <ClCompile Include="..\..\include\common\Locker.cpp" />
+    <ClCompile Include="..\..\include\common\PLogCommon.cpp" />
+    <ClCompile Include="..\..\include\common\PreviewWnd.cpp" />
+    <ClCompile Include="..\..\include\common\QueueLocalMemory.cpp" />
+    <ClCompile Include="..\..\include\common\QueueSharedMemory.cpp" />
+    <ClCompile Include="..\..\include\common\RepeatWorkProc.cpp" />
+    <ClCompile Include="..\..\include\common\SyncSharedMemory.cpp" />
+    <ClCompile Include="..\..\include\common\TimerEx.cpp" />
+    <ClCompile Include="..\..\include\common\TimerLockerManager.cpp" />
+    <ClCompile Include="..\..\include\common\Util.cpp" />
+    <ClCompile Include="..\..\include\network\PacketDefine.cpp" />
+    <ClCompile Include="..\..\include\network\PacketStruct.cpp" />
+    <ClCompile Include="..\..\include\network\RecvWorkerSyncQueue.cpp" />
+    <ClCompile Include="..\..\include\network\SendWorkerManager.cpp" />
+    <ClCompile Include="..\..\include\network\SendWorkerSyncQueue.cpp" />
+    <ClCompile Include="..\..\include\proto\CameraInfoFile.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\include\proto\SystemInfo.cpp" />
+    <ClCompile Include="..\..\src\Application.cpp" />
+    <ClCompile Include="..\..\src\Camera.cpp" />
+    <ClCompile Include="..\..\src\control\Control.cpp" />
+    <ClCompile Include="..\..\src\decoder\Converter_FFmpeg.cpp" />
+    <ClCompile Include="..\..\src\decoder\Decoder.cpp" />
+    <ClCompile Include="..\..\src\decoder\DecoderFactory.cpp" />
+    <ClCompile Include="..\..\src\decoder\Decoder_FFmpeg.cpp" />
+    <ClCompile Include="..\..\src\decoder\FFmpeg.cpp" />
+    <ClCompile Include="..\..\src\live555\rtsp_callback.cpp" />
+    <ClCompile Include="..\..\src\live555\rtsp_client.cpp" />
+    <ClCompile Include="..\..\src\live555\rtsp_H264Sink.cpp" />
+    <ClCompile Include="..\..\src\live555\rtsp_StreamClientState.cpp" />
+    <ClCompile Include="..\..\src\main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ptz\PTZ.cpp" />
+    <ClCompile Include="..\..\src\session\Session.cpp" />
+    <ClCompile Include="..\..\src\session\SessionFactory.cpp" />
+    <ClCompile Include="..\..\src\session\Session_RTSP.cpp" />
+    <ClCompile Include="..\..\src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\src\stream\Streamer.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

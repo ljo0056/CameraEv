@@ -1,0 +1,329 @@
+﻿#include "stdafx.h"
+#include "Decoder.h"
+#include "DecoderFactory.h"
+
+#include "common/Util.h"
+#include "common/FPSChecker.h"
+#include "common/QueueLocalMemory.h"
+#include "common/TimerLockerManager.h"
+
+
+Decoder::Decoder()
+    : m_fps_checker(new FPSChecker)
+{
+    DecoderFactory::Initialize();
+
+    SaveThreadName("Decoder");
+}
+
+Decoder::~Decoder()
+{
+    Finalize();
+}
+
+int Decoder::Initialize(const DecoderInfo& param, const DecoderCallback& callback)
+{
+    m_impl = DecoderFactory::CreateFactory(param.type);
+    if (nullptr == m_impl)
+        return 1;
+
+    m_impl->SetInfo(param);
+
+    if (IsFpsAuto())
+        m_adaptive_fps = DECODE_DEFAULT_FPS;
+    else
+        m_adaptive_fps = GetDecoderInfo().fps;
+
+    if (0 == m_adaptive_fps)
+        m_adaptive_fps = DECODE_DEFAULT_FPS;
+
+    // stream queue initialize
+    {
+        std::lock_guard<std::recursive_mutex> lock(m_queue_mutex);
+        m_queue_stream.reset(new QueueLocalMemory);
+        m_queue_stream->Initialize("Stream_Queue", 1024 * 1024);   // 1024 * 1024 = 1 MB
+    }
+
+    m_callback = callback;
+
+    return 0;
+}
+
+int Decoder::Finalize()
+{
+    // stream queue finalize
+    {
+        std::lock_guard<std::recursive_mutex> lock(m_queue_mutex);
+        m_queue_stream->Finalize();
+        while (m_queue_src.size())
+            m_queue_src.pop();
+    }
+
+    return 0;
+}
+
+int Decoder::Activate()
+{
+    if (m_impl->Activate())
+        return 1;
+
+    InnerThread::StartThread();
+
+    return 0;
+}
+
+int Decoder::Deactivate()
+{
+    m_thread_running = false;
+    InnerThread::JoinThread();
+
+    m_impl->Deactivate();
+
+    return 0;
+}
+
+const DecoderInfo& Decoder::GetDecoderInfo() const
+{
+    return m_impl->GetInfo();
+}
+
+const FrameInfo& Decoder::GetFrameInfo(FRAME_TYPE type) const
+{
+    return m_impl->GetFrameInfo(type);
+}
+
+void Decoder::SetFrameInfo(FRAME_TYPE type, const FrameInfo& info)
+{
+    std::lock_guard<std::recursive_mutex> lock(m_frame_info_mutex);
+    if (FT_ORIGINAL == type)
+    {
+        m_impl->GetFrameInfoRef(type).pixel_format = info.pixel_format;
+        return; // 원본 영상의 해상도는 Decoder m_impl 객체 내부에서 지정해준다.
+    }
+
+    m_impl->GetFrameInfoRef(type) = info;
+}
+
+int Decoder::Decode(const VideoSource& src, DecoderVideoDest& dst)
+{
+    return m_impl->Decode(src, dst);
+}
+
+int Decoder::GetCalcBufferSize(int video_pixel_format, int width, int height) const
+{
+    int ret = 0;
+
+    switch (video_pixel_format)
+    {
+    case VPIX_FMT_BGR24:
+    case VPIX_FMT_RGB24:
+        {
+            int line_size = ((width * 3 + 0 + 3) / 4 * 4);
+            ret = line_size * height;
+            //ret = width * height * 3;
+        }
+        break;
+    case VPIX_FMT_YUY2:
+        ret = width * height * 2;
+        break;
+    case VPIX_FMT_YV12:
+        {
+            int temp = width * height;
+            ret = temp + (temp / 2);
+        }
+        break;
+    default:
+        break;
+    }
+
+    return ret;
+}
+
+void Decoder::PrintFPS(double ms, int count, float fps)
+{
+    LOGI << fmt::format("Real time fps   Time[{0:.1f}] count[{1}] FPS[{2:.1f}]", ms, count, fps);
+}
+
+bool Decoder::IsFpsAuto()
+{
+    if (DECODE_FPS_AUTO == GetDecoderInfo().fps)
+        return true;
+    return false;
+}
+
+int Decoder::QueuePush(const VideoSource& src)
+{
+    if (src.frame.data_size <= 0)
+        return 1;
+
+    std::lock_guard<std::recursive_mutex> lock(m_queue_mutex);
+
+    // 영상 데이터를 Queue 에 Push
+    if (m_queue_stream->Push(src.frame.data, src.frame.data_size))
+        return 2;
+
+    // 영상 데이터의 부가 정보를 설정
+    QueueVideoSrc src_item;
+    src_item.time  = std::chrono::high_resolution_clock::now(); // 시간
+    src_item.video = src;
+    src_item.video.frame.data = nullptr;   // 사용하지 않음
+    m_queue_src.push(src_item);
+
+    // FPS 계산
+    m_fps_checker->DoCheckCount([this](double ms, int count, float fps)
+    {
+        if (IsFpsAuto())
+            m_adaptive_fps = (int)std::round(fps);
+
+        PrintFPS(ms, count, fps);
+    });
+
+    return 0;
+}
+
+int Decoder::GetDecodingFps(int cur_fps)
+{
+    if ((int)std::round(cur_fps * 1.25) < m_queue_src.size())
+    {
+        // Frame 이 많이 쌓여있다면 fps 를 높여서 빨리 처리 한다.
+        return 100; // 100fps 로 처리 (-> 10ms)
+    }
+ 
+    int change_fps = IsFpsAuto() ? m_adaptive_fps : GetDecoderInfo().fps;
+
+    if (IsFpsAuto())
+    {
+        int fps_diff = std::abs(m_adaptive_fps - cur_fps);
+        if (fps_diff > 1)   // 오차 범위를 체크해서 fps 를 설정 한다.
+            change_fps = m_adaptive_fps;
+    }
+
+    if (0 == change_fps)    // 예외처리
+        change_fps = cur_fps;
+
+    return change_fps;
+}
+
+void Decoder::SetDstBufferInfo(DecoderVideoDest& dst, std::vector<byte>* arr_buffer)
+{
+    std::lock_guard<std::recursive_mutex> lock(m_frame_info_mutex);
+
+    for (int ii = 0 ; ii < FT_NUM ; ii++)
+    {
+        dst.frame_info[ii] = GetFrameInfo((FRAME_TYPE)ii);
+
+        if (arr_buffer[ii].empty())
+            continue;
+        dst.frame[ii].data = arr_buffer[ii].data();
+        dst.frame[ii].data_size = (int)arr_buffer[ii].size();
+    }
+}
+
+bool Decoder::SetAllocBuffer(DecoderVideoDest& dst, std::vector<byte>* arr_buffer)
+{
+    std::lock_guard<std::recursive_mutex> lock(m_frame_info_mutex);
+
+    bool ret = false;
+    for (int ii = 0 ; ii < FT_NUM ; ii++)
+    {
+        const FrameInfo& frame_info = GetFrameInfo((FRAME_TYPE)ii);
+        if (VPIX_FMT_NONE == frame_info.pixel_format ||
+            false == frame_info.decode ||
+            0 == frame_info.width || 0 == frame_info.height)    // decoding 이 필요없는 Frame type 이라면 할당하지 않는다.
+            continue;
+
+        dst.frame[ii].data_size = GetCalcBufferSize(frame_info.pixel_format, frame_info.width, frame_info.height);
+        if (arr_buffer[ii].size() < dst.frame[ii].data_size)
+        {
+            arr_buffer[ii].resize(dst.frame[ii].data_size);
+            ret = true;
+        }
+    }
+
+    return ret;
+}
+
+void Decoder::ThreadLoop()
+{
+    if (0 == m_adaptive_fps)
+        m_adaptive_fps = DECODE_DEFAULT_FPS;
+
+    CTimerLockerManager& timer_manager = CTimerLockerManager::GetInstance();
+    CTimerLocker* timer_fps = timer_manager.GetTimerLockerByFps("Decoding_fps", (int)m_adaptive_fps);
+
+    int decoding_index = 0;
+    QueueVideoSrc src_item;
+    std::vector<byte> arr_buffer_src(1024);
+    std::vector<byte> arr_buffer_dst[FT_NUM];
+
+    // 메모리를 미리 예약해놓는다.
+    arr_buffer_src.reserve(1024 * 1024 * 1);
+    for (int ii = 0 ; ii < FT_NUM ; ii++)
+        arr_buffer_dst[ii].reserve(1024 * 1024 * 3);
+
+    m_thread_running = true;
+    while (m_thread_running)
+    {
+        do
+        {
+            // Start - Stream source data pop
+            {
+                std::lock_guard<std::recursive_mutex> lock(m_queue_mutex);
+                if (m_queue_src.empty())
+                    break;
+
+                src_item = m_queue_src.front();
+
+                // frame push 시간과 현재 시간의 차이를 구한다.
+                time_pt cur_time = std::chrono::high_resolution_clock::now();
+                time_ms elapsed  = cur_time - src_item.time;
+
+                // Stream 누적 시간을 체크해서 queue_accumulate_time 이상 누적 되었다면 Pop 을 한다.
+                if (elapsed.count() < GetDecoderInfo().queue_accumulate_time)
+                    break;
+
+                if (arr_buffer_src.size() < src_item.video.frame.data_size)
+                    arr_buffer_src.resize(src_item.video.frame.data_size);
+
+                m_queue_stream->Front(arr_buffer_src.data(), src_item.video.frame.data_size);
+                src_item.video.frame.data = arr_buffer_src.data();
+
+                m_queue_src.pop();
+                m_queue_stream->Pop();
+            }
+
+            // set frame buffer info...
+            DecoderVideoDest dst;
+            SetDstBufferInfo(dst, arr_buffer_dst);
+
+            // Process decoding...
+            int decode_ret = Decode(src_item.video, dst);
+            if (DECODE_SUCCESS != decode_ret)
+                break;
+
+            // Decoding 이 한번은 정상적으로 수행이 되어야 실제 Frame 해상도를 알아올 수 있다.
+            if (0 < GetFrameInfo(FT_ORIGINAL).width && 0 < GetFrameInfo(FT_ORIGINAL).height)
+            {
+                if (SetAllocBuffer(dst, arr_buffer_dst))
+                    break;  // 버퍼를 새롭게 할당했을 시에 루프의 처음으로 돌아가서 decoding convert 를 수행한다.
+            }
+
+            // FPS 설정
+            int change_fps = GetDecodingFps(timer_fps->GetFps());
+            if (timer_fps->GetFps() != change_fps)
+                timer_fps = timer_manager.GetTimerLockerByFps("Decoding_fps", change_fps);
+
+            // Callback 호출
+            dst.index = decoding_index++;
+            dst.fps   = change_fps;
+            if (m_callback.callback_decompress)
+                m_callback.callback_decompress(dst);
+
+        } while (0);
+
+        timer_fps->Wait();
+    }
+
+    timer_manager.DeleteTimerLocker(timer_fps);
+}
+

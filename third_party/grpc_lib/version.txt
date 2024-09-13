@@ -1,0 +1,7 @@
+[grpc]
+url       : https://grpc.io
+github  : https://github.com/grpc/grpc
+version : v1.20.0
+
+[protobuf]
+version : libprotoc 3.7.0
